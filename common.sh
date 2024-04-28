@@ -1,5 +1,13 @@
 #!/bin/bash
 
+set -e #used to handle errors by shell
+trap 'failure ${LINENO} ${BASH_COMMAND}' ERR
+
+
+failure()
+{
+    echo "Error occurs at $LINENO at $BASH_COMMAND"
+}
 USERID=$(id -u)
 
 TIMESTAMP=$(date +%F-%H-%M-%S)

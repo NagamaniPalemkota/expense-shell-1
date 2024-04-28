@@ -20,16 +20,10 @@ VALIDATE(){
 
 
 dnf install mysql-server -y &>>$LOGFILE
-VALIDATE $? "Installing mysql server"
 
 systemctl enable mysqld &>>$LOGFILE
-VALIDATE $? "Enabling mysql server"
 
 systemctl start mysqld &>>$LOGFILE
-VALIDATE $? "Starting mysql server"
-
-# mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
-# VALIDATE $? "setting up root password"
 
 #below code will be useful for idempotent nature
 mysql -h db.muvva.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
