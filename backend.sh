@@ -14,13 +14,6 @@ VALIDATE(){
     fi
 }
 
-if [ $USERID -ne 0 ]
-then
-    echo "Please run with super user access"
-    exit 1 #manually exiting the code if error comes
-else
-    echo "You are super user"
-fi
 
 dnf module disable nodejs -y &>>$LOGFILE
 VALIDATE $? "Disabling older nodejs versions"
@@ -56,7 +49,7 @@ VALIDATE $? "Extracted backend code"
 npm install &>>$LOGFILE
 VALIDATE $? "Installing dependencies"
 
-cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
+cp /home/ec2-user/expense-shell-1/backend.service /etc/systemd/system/backend.service &>>$LOGFILE
 VALIDATE $? "Copied backend service"
 
 systemctl daemon-reload &>>$LOGFILE

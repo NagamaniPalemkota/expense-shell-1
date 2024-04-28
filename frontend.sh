@@ -1,6 +1,9 @@
 #!/bin/bash/
 
 
+source ./common.sh #calling common.sh script
+
+check_root
 
 VALIDATE(){
     if [ $1 -ne 0 ]
@@ -11,14 +14,6 @@ VALIDATE(){
         echo -e "$2 is $G success $N"
     fi
 }
-
-if [ $USERID -ne 0 ]
-then
-    echo "Please run with super user access"
-    exit 1 #manually exiting the code if error comes
-else
-    echo "You are super user"
-fi
 
 dnf install nginx -y &>>$LOGFILE
 VALIDATE $? "Installing nginx"
@@ -39,7 +34,7 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>$LOGFILE
 VALIDATE $? "Extracting front end code"
 
-cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>>$LOGFILE
+cp /home/ec2-user/expense-shell-1/expense.conf /etc/nginx/default.d/expense.conf &>>$LOGFILE
 VALIDATE $? "Copied expense.conf"
 
 systemctl restart nginx &>>$LOGFILE
