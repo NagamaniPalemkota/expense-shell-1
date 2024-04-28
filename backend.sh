@@ -1,16 +1,8 @@
 #!/bin/bash/
 
-USERID=$(id -u)
+source ./common.sh #calling common.sh script
 
-TIMESTAMP=$(date +%F-%H-%M-%S)
-SCRIPTNAME=$(echo "$0" | cut -d "." -f1)
-LOGFILE=/tmp/$SCRIPTNAME-$TIMESTAMP.log
-R="\e[31m"
-G="\e[32m"
-Y="\e[33m"
-N="\e[0m"
-echo "Enter DB password"
-read -s mysql_root_password
+check_root
 
 VALIDATE(){
     if [ $1 -ne 0 ]
